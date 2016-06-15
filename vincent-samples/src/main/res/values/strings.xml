@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">Vincent samples</string>
+    <string name="label_single">Single images</string>
+    <string name="label_groups">Image groups</string>
+    <string name="the_starry_night">The Starry Night. Oil on canvas 73 × 92 cm, by Vincent van Gogh – Downloaded from Houston tourism web site around painting\'s time in Houston\'s Museum of Fine Arts (21 September 2003 – 4 January 2004). Can no longer find web site., Public Domain, https://commons.wikimedia.org/w/index.php?curid=9860</string>
+    <string name="rooftops">Rooftops. By Vincent van Gogh. ISBN 3936122202. Distributed by DIRECTMEDIA Publishing GmbH., Public Domain, https://commons.wikimedia.org/w/index.php?curid=151843</string>
+    <string name="title_activity_main">Vincent samples</string>
+    <string name="action_settings">Settings</string>
+    <string-array name="samples_list">
+        <item>@string/label_single</item>
+        <item>@string/label_groups</item>
+        <item>On fragment</item>
+        <item>Using with Picasso</item>
+        <item>With custom fragment</item>
+        <item>Custom variants</item>
+    </string-array>
+    <string-array name="activity_list">
+        <item>.SingleImageActivity</item>
+        <item>.GroupsActivity</item>
+    </string-array>
 </resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="VincentView">
+        <attr name="imageUri" format="string" />
+        <attr name="pinch2zoomEnable" format="boolean" />
+        <attr name="overlayMode" format="boolean" />
+        <attr name="groupId" format="integer" />
+    </declare-styleable>
+</resources>

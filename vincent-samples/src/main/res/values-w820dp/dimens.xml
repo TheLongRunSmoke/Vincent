@@ -1,3 +1,14 @@
+<!--
+  ~ Copyright (C) 2016 Alexander Varakosov.
+  ~
+  ~ Licensed under the MIT License(the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      https://github.com/TheLongRunSmoke/vincent/blob/master/LICENSE
+  ~
+  -->
+
 <resources>
     <!-- Example customization of dimensions originally defined in res/values/dimens.xml
          (such as screen margins) for screens with more than 820dp of available width. This

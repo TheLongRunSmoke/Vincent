@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Vincent</string>
+    <string name="desc_progress">In progress</string>
 </resources>
