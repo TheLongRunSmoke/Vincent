@@ -2,13 +2,17 @@ package ru.tlrs.vincent;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatDialogFragment;
+import android.support.v7.view.ContextThemeWrapper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,13 +29,16 @@ import android.widget.TextView;
 
 public final class LightBox extends AppCompatDialogFragment {
 
+    static final String TAG = LightBox.class.getSimpleName();
+
     private static volatile LightBox instance;
 
     private static final String LOG_TAG = "LightBox";
 
+    private int parentId;
     private boolean isOverlay;
     private boolean isPitch2Zoom;
-    private int imgUri;
+    private String imgUri;
     private int groupId;
     private String mDesc;
 
@@ -42,6 +49,7 @@ public final class LightBox extends AppCompatDialogFragment {
     }
 
     enum ViewAttr{
+        PARENT_ID("id"),
         OVERLAY_MODE("isOverlayMode"),
         P2Z_MODE("isPitch2Zoom"),
         URI("imgUri"),
@@ -75,10 +83,16 @@ public final class LightBox extends AppCompatDialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         Log.d(LOG_TAG, "onCreateView: ");
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         getFields(getArguments());
-        ((ImageView)container.findViewById(R.id.fullImage)).setImageResource(imgUri);
-        ((TextView)container.findViewById(R.id.description)).setText(mDesc);
         return createView(isOverlay, container);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ((ImageView)view.findViewById(R.id.fullImage)).setImageDrawable(((ImageView)getActivity().findViewById(parentId)).getDrawable());
+        ((TextView)view.findViewById(R.id.description)).setText(mDesc);
     }
 
     @Override
@@ -87,16 +101,20 @@ public final class LightBox extends AppCompatDialogFragment {
     }
 
     private void getFields(Bundle bundle) {
+        parentId = bundle.getInt(ViewAttr.PARENT_ID.getKey(), 0);
         isOverlay = bundle.getBoolean(ViewAttr.OVERLAY_MODE.getKey(), false);
         isPitch2Zoom = bundle.getBoolean(ViewAttr.P2Z_MODE.getKey(), false);
-        imgUri = bundle.getInt(ViewAttr.URI.getKey());
+        imgUri = bundle.getString(ViewAttr.URI.getKey());
         groupId = bundle.getInt(ViewAttr.GROUP_ID.getKey());
         mDesc = bundle.getString(ViewAttr.DESC.getKey());
+        Log.d(TAG, "getFields: " + imgUri);
+        Log.d(TAG, "getFields: " + mDesc);
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setStyle(STYLE_NO_TITLE, 0);
         Log.d(LOG_TAG, "onCreate: ");
     }
 

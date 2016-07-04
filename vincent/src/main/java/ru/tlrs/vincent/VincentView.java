@@ -36,17 +36,12 @@ public class VincentView extends ImageView implements View.OnClickListener{
     private boolean mPinch2Zoom;
     private boolean mOverlayMode;
     private int mGroupId;
-    private int mSrcId;
 
     private static final String LOG_TAG = "VincentView";
 
     public VincentView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
-        //TypedArray a = context.obtainStyledAttributes(
-        //        attrs, com.android.internal.R.styleable.ImageView, 0, 0);
-        //mSrcId = a.getInt(com.android.internal.R.styleable.ImageView_src, 0);
-        //a.recycle();
         TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.VincentView, 0, 0);
         try {
             mImgUri = a.getString(R.styleable.VincentView_imageUri);
@@ -91,9 +86,10 @@ public class VincentView extends ImageView implements View.OnClickListener{
         Bundle result = new Bundle();
         result.putBoolean(LightBox.ViewAttr.OVERLAY_MODE.getKey(), mOverlayMode);
         result.putBoolean(LightBox.ViewAttr.P2Z_MODE.getKey(), mPinch2Zoom);
-        result.putString(LightBox.ViewAttr.URI.getKey(), mImgUri);
+        result.putString(LightBox.ViewAttr.URI.getKey(),  mImgUri);
         result.putInt(LightBox.ViewAttr.GROUP_ID.getKey(), mGroupId);
         result.putString(LightBox.ViewAttr.DESC.getKey(), getContentDescription().toString());
+        result.putInt(LightBox.ViewAttr.PARENT_ID.getKey(), this.getId());
         return result;
     }
 
