@@ -45,7 +45,7 @@ public class VincentView extends ImageView implements View.OnClickListener{
         TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.VincentView, 0, 0);
         try {
             mImgUri = a.getString(R.styleable.VincentView_imageUri);
-            mOverlayMode = a.getBoolean(R.styleable.VincentView_overlayMode, true);
+            mOverlayMode = a.getBoolean(R.styleable.VincentView_overlayMode, false);
             mPinch2Zoom = !mOverlayMode && a.getBoolean(R.styleable.VincentView_pinch2zoomEnable, true);
             mGroupId = a.getInt(R.styleable.VincentView_groupId, 0);
         } finally {

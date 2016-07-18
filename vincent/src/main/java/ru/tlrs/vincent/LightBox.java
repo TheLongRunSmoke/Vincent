@@ -2,18 +2,23 @@ package ru.tlrs.vincent;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.support.v7.view.ContextThemeWrapper;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
@@ -83,14 +88,24 @@ public final class LightBox extends AppCompatDialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         Log.d(LOG_TAG, "onCreateView: ");
-        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        getFields(getArguments());
-        return createView(isOverlay, container);
+        //getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        View view = View.inflate(this.getActivity(), R.layout.modal, container);
+        if (!isOverlay) {
+            //DisplayMetrics dm = new DisplayMetrics();
+            //getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+            //ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(dm.widthPixels, dm.heightPixels);
+            //View root = view.findViewById(R.id.modal);
+            //root.setLayoutParams(lp);
+        }else {
+            getDialog().setCanceledOnTouchOutside(true);
+        }
+        return view;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        getFields(getArguments());
         ((ImageView)view.findViewById(R.id.fullImage)).setImageDrawable(((ImageView)getActivity().findViewById(parentId)).getDrawable());
         ((TextView)view.findViewById(R.id.description)).setText(mDesc);
     }
@@ -113,8 +128,13 @@ public final class LightBox extends AppCompatDialogFragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        getFields(getArguments());
         super.onCreate(savedInstanceState);
-        setStyle(STYLE_NO_TITLE, 0);
+        if (!isOverlay) {
+            setStyle(DialogFragment.STYLE_NORMAL, R.style.MODAL_DIALOG);
+        }else {
+            setStyle(DialogFragment.STYLE_NO_TITLE, R.style.OVERLAY_DIALOG);
+        }
         Log.d(LOG_TAG, "onCreate: ");
     }
 
@@ -140,4 +160,10 @@ public final class LightBox extends AppCompatDialogFragment {
         }
     }
 
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        Log.d(TAG, "onDismiss: ");
+        System.gc();
+        super.onDismiss(dialog);
+    }
 }
