@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="MODAL.DIALOG" parent="android:Theme" >
+    <style name="Vincent.Dialog" parent="android:Theme">
         <item name="android:windowNoTitle">true</item>
-        <item name="android:windowIsFloating">false</item>
     </style>
 
-    <style name="OVERLAY.DIALOG" parent="android:Theme" >
-        <item name="android:windowNoTitle">true</item>
+    <style name="Vincent.Dialog.Modal">
+        <item name="android:windowIsFloating">false</item>
+        <item name="backgroundColor">@color/vincent_modal_background</item>
+    </style>
+
+    <style name="Vincent.Dialog.Overlay">
         <item name="android:windowIsFloating">true</item>
+        <item name="backgroundColor">@color/vincent_overlay_background</item>
     </style>
 
 </resources>

@@ -84,12 +84,12 @@ public class VincentView extends ImageView implements View.OnClickListener{
 
     private Bundle fields(){
         Bundle result = new Bundle();
-        result.putBoolean(LightBox.ViewAttr.OVERLAY_MODE.getKey(), mOverlayMode);
-        result.putBoolean(LightBox.ViewAttr.P2Z_MODE.getKey(), mPinch2Zoom);
-        result.putString(LightBox.ViewAttr.URI.getKey(),  mImgUri);
-        result.putInt(LightBox.ViewAttr.GROUP_ID.getKey(), mGroupId);
-        result.putString(LightBox.ViewAttr.DESC.getKey(), getContentDescription().toString());
-        result.putInt(LightBox.ViewAttr.PARENT_ID.getKey(), this.getId());
+        result.putBoolean(LightBox.ViewAttr.OVERLAY_MODE.name(), mOverlayMode);
+        result.putBoolean(LightBox.ViewAttr.P2Z_MODE.name(), mPinch2Zoom);
+        result.putString(LightBox.ViewAttr.URI.name(),  mImgUri);
+        result.putInt(LightBox.ViewAttr.GROUP_ID.name(), mGroupId);
+        result.putString(LightBox.ViewAttr.DESC.name(), getContentDescription().toString());
+        result.putInt(LightBox.ViewAttr.PARENT_ID.name(), this.getId());
         return result;
     }
 

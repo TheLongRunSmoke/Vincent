@@ -6,4 +6,7 @@
         <attr name="overlayMode" format="boolean" />
         <attr name="groupId" format="integer" />
     </declare-styleable>
+
+    <attr name="backgroundColor" format="reference" />
+    <attr name="descriptionColor" format="reference" />
 </resources>
