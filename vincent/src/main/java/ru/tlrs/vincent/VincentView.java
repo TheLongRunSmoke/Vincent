@@ -1,7 +1,9 @@
 package ru.tlrs.vincent;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.util.AttributeSet;
@@ -9,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -36,6 +39,7 @@ public class VincentView extends ImageView implements View.OnClickListener{
     private boolean mPinch2Zoom;
     private boolean mOverlayMode;
     private int mGroupId;
+    private int mSrc;
 
     private static final String LOG_TAG = "VincentView";
 
@@ -48,6 +52,14 @@ public class VincentView extends ImageView implements View.OnClickListener{
             mOverlayMode = a.getBoolean(R.styleable.VincentView_overlayMode, false);
             mPinch2Zoom = !mOverlayMode && a.getBoolean(R.styleable.VincentView_pinch2zoomEnable, true);
             mGroupId = a.getInt(R.styleable.VincentView_groupId, 0);
+            try {
+                Class clasz = Class.forName("com.android.internal.R$attr");
+                Field field = clasz.getDeclaredField("src");
+                field.setAccessible(true);
+                mSrc = (int) field.get(null);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         } finally {
             a.recycle();
         }
@@ -90,6 +102,7 @@ public class VincentView extends ImageView implements View.OnClickListener{
         result.putInt(LightBox.ViewAttr.GROUP_ID.name(), mGroupId);
         result.putString(LightBox.ViewAttr.DESC.name(), getContentDescription().toString());
         result.putInt(LightBox.ViewAttr.PARENT_ID.name(), this.getId());
+        result.putInt(LightBox.ViewAttr.SRC.name(), mSrc);
         return result;
     }
 

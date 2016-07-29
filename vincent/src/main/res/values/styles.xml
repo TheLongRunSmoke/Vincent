@@ -7,12 +7,10 @@
 
     <style name="Vincent.Dialog.Modal">
         <item name="android:windowIsFloating">false</item>
-        <item name="backgroundColor">@color/vincent_modal_background</item>
     </style>
 
     <style name="Vincent.Dialog.Overlay">
         <item name="android:windowIsFloating">true</item>
-        <item name="backgroundColor">@color/vincent_overlay_background</item>
     </style>
 
 </resources>
