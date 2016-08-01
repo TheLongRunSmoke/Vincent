@@ -39,29 +39,28 @@ public class VincentView extends ImageView implements View.OnClickListener{
     private boolean mPinch2Zoom;
     private boolean mOverlayMode;
     private int mGroupId;
-    private int mSrc;
+    private String mSrc;
 
     private static final String LOG_TAG = "VincentView";
 
     public VincentView(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, Resources.getSystem().getIdentifier("src", "attr", "android"));
+    }
+
+    public VincentView(Context context, AttributeSet attrs, int src) {
+        super(context, attrs, src);
         mContext = context;
         TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.VincentView, 0, 0);
+        TypedArray b = context.getTheme().obtainStyledAttributes(attrs, new int[]{src}, 0, 0);
         try {
             mImgUri = a.getString(R.styleable.VincentView_imageUri);
             mOverlayMode = a.getBoolean(R.styleable.VincentView_overlayMode, false);
             mPinch2Zoom = !mOverlayMode && a.getBoolean(R.styleable.VincentView_pinch2zoomEnable, true);
             mGroupId = a.getInt(R.styleable.VincentView_groupId, 0);
-            try {
-                Class clasz = Class.forName("com.android.internal.R$attr");
-                Field field = clasz.getDeclaredField("src");
-                field.setAccessible(true);
-                mSrc = (int) field.get(null);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+            mSrc = b.getString(0);
         } finally {
             a.recycle();
+            b.recycle();
         }
         setOnClickListener(this);
     }
@@ -102,7 +101,7 @@ public class VincentView extends ImageView implements View.OnClickListener{
         result.putInt(LightBox.ViewAttr.GROUP_ID.name(), mGroupId);
         result.putString(LightBox.ViewAttr.DESC.name(), getContentDescription().toString());
         result.putInt(LightBox.ViewAttr.PARENT_ID.name(), this.getId());
-        result.putInt(LightBox.ViewAttr.SRC.name(), mSrc);
+        result.putString(LightBox.ViewAttr.SRC.name(), mSrc);
         return result;
     }
 

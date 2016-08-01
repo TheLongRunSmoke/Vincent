@@ -6,6 +6,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ScaleDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -53,7 +54,7 @@ public final class LightBox extends AppCompatDialogFragment {
     private int groupId;
     private String mDesc;
 
-    private int mSrc;
+    private String mSrc;
 
     private Boolean prevOverlay;
 
@@ -102,7 +103,8 @@ public final class LightBox extends AppCompatDialogFragment {
                 drawable.setBounds(new Rect(0,0,width,height));
                 //ScaleDrawable sd = new ScaleDrawable(drawable, 0, 1.0f ,1.0f );
                 fullImage.setImageDrawable(drawable);*/
-                fullImage.setImageDrawable(getResources().getDrawable(mSrc));
+                fullImage.setImageURI(null);
+                fullImage.setImageURI(Uri.parse("resource://"+mSrc));
                 return false;
             }
         });
@@ -127,7 +129,7 @@ public final class LightBox extends AppCompatDialogFragment {
         imgUri = bundle.getString(ViewAttr.URI.name());
         groupId = bundle.getInt(ViewAttr.GROUP_ID.name());
         mDesc = bundle.getString(ViewAttr.DESC.name());
-        mSrc = bundle.getInt(ViewAttr.SRC.name(), 0);
+        mSrc = bundle.getString(ViewAttr.SRC.name());
     }
 
     @Override
