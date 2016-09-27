@@ -90,21 +90,22 @@ public final class LightBox extends AppCompatDialogFragment {
             @Override
             public boolean onPreDraw() {
                 fullImage.getViewTreeObserver().removeOnPreDrawListener(this);
-                /*int height = fullImage.getMeasuredHeight();
+                int height = fullImage.getMeasuredHeight();
                 int width = fullImage.getMeasuredWidth();
                 Log.d(TAG, "onPreDraw: " + String.format("height: %s, width: %s", height, width) );
                 //Rect view = new Rect(0,0,width, height);
                 Drawable drawable = ((ImageView) getActivity().findViewById(parentId)).getDrawable();
-                drawable = drawable.mutate();
+                /*drawable = drawable.mutate();
                 //Rect draw = drawable.getBounds();
                 int h = drawable.getIntrinsicHeight();
                 int w = drawable.getIntrinsicWidth();
                 //drawable.setBounds(0,0,w,h);
                 drawable.setBounds(new Rect(0,0,width,height));
-                //ScaleDrawable sd = new ScaleDrawable(drawable, 0, 1.0f ,1.0f );
-                fullImage.setImageDrawable(drawable);*/
-                fullImage.setImageURI(null);
-                fullImage.setImageURI(Uri.parse("resource://"+mSrc));
+                //ScaleDrawable sd = new ScaleDrawable(drawable, 0, 1.0f ,1.0f );*/
+                //fullImage.setImageDrawable(drawable);
+                //fullImage.setImageURI(null);
+                Log.d(TAG, "onPreDraw: mSrc = "+ mSrc);
+                fullImage.setImageURI(Uri.parse("android.resource://com.example.vincent/"+mSrc)); //give "More than two path segments", instead of NullPointer
                 return false;
             }
         });
@@ -118,8 +119,6 @@ public final class LightBox extends AppCompatDialogFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Log.d(TAG, "onViewCreated: ");
-        //((ImageView)view.findViewById(R.id.fullImage)).setImageDrawable(((ImageView)getActivity().findViewById(parentId)).getDrawable());
-        //((TextView)view.findViewById(R.id.description)).setText(mDesc);
     }
 
     private void getFields(Bundle bundle) {
